@@ -29,7 +29,6 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/bonds-client-new:latest
             ${{ secrets.DOCKER_USERNAME }}/bonds-client-new:${{ github.sha }}
-          # ПРОКИДЫВАЕМ ВСЕ NEXT_PUBLIC ПЕРЕМЕННЫЕ НА ЭТАПЕ СБОРКИ
           build-args: |
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
             NEXT_PUBLIC_LEGAL_FIO=${{ secrets.NEXT_PUBLIC_LEGAL_FIO }}
@@ -48,8 +47,5 @@ jobs:
           script: |
             # Переходим в папку app
             cd ~/app || exit 1
-            
-            
-            # Подтягиваем свежие образы
             docker compose pull bonds-client
             docker compose up -d --force-recreate bonds-client
